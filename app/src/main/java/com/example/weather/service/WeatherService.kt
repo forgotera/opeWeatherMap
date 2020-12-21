@@ -1,14 +1,12 @@
 package com.example.weather.service
 
 import android.os.AsyncTask
-import android.util.Log
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.net.HttpURLConnection
 import java.net.URL
 
 
-//todo в порядке исключения asyntask
 /**
  * класс отвечающий за запросы в сеть
  */
@@ -34,10 +32,10 @@ class WeatherService : AsyncTask<URL, Unit, String>() {
             connection?.readTimeout = 250
 
 
-            //todo по хорошему должно быть обработка кодов
-            if (HttpURLConnection.HTTP_OK == connection!!.responseCode) {
+            //todo по хорошему должна быть обработка кодов
+            if (connection?.responseCode in HttpURLConnection.HTTP_OK..HttpURLConnection.HTTP_ACCEPTED) {
                 val reader =
-                    BufferedReader(InputStreamReader(connection.inputStream))
+                    BufferedReader(InputStreamReader(connection?.inputStream))
                 var line: String?
                 while (reader.readLine().also { line = it } != null) {
                     builder.append(line)
@@ -50,7 +48,6 @@ class WeatherService : AsyncTask<URL, Unit, String>() {
         } finally {
             connection?.disconnect()
         }
-        Log.d("answer", builder.toString())
         return builder.toString()
     }
 

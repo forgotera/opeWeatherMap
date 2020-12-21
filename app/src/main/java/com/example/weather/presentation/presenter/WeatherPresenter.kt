@@ -8,7 +8,6 @@ class WeatherPresenter(
     private val view: ViewInterface,
     private val interactor: WeatherInteractor
 ) {
-
     fun getWeather(place: String) {
         view.setWeather( interactor.getWeather(place))
     }

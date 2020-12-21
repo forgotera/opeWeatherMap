@@ -92,6 +92,7 @@ class MainActivity : AppCompatActivity(), ViewInterface {
         feelsLikeTemperature.text = savedInstanceState.getCharSequence(FEELS_LIKE_TEMPERATURE)
     }
 
+    //смена ориентации выкл, но так же есть кейс со сменой локали
     override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
         super.onSaveInstanceState(outState, outPersistentState)
         outState.putCharSequence(MAX_TEMPERATURE, maxTemperature.text)

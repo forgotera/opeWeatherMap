@@ -11,7 +11,6 @@ class WeatherInteractorImpl(
     private val repository:WeatherRepository
 ):WeatherInteractor {
 
-
     override fun getWeather(place: String): WeatherModel? {
         return repository.getWeather(place)
     }
