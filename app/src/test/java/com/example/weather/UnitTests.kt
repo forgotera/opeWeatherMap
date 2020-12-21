@@ -1,19 +1,13 @@
 package com.example.weather
 
-import android.net.Uri
-import com.example.weather.data.WeatherRepositoryImpl
 import com.example.weather.data.dto.*
 import com.example.weather.domain.mapper.WeatherMapper
-import com.example.weather.service.WeatherService
 import org.junit.Assert
 import org.junit.Test
 import java.math.BigDecimal
-import java.net.URL
+
 
 class UnitTests {
-
-
-
     @Test
     fun mapWeatherTest() {
         val dto = WeatherDto(
