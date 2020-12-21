@@ -101,6 +101,7 @@ class MainActivity : AppCompatActivity(), ViewInterface {
         outState.putCharSequence(FEELS_LIKE_TEMPERATURE, feelsLikeTemperature.text)
     }
 
+    //можно сделать compound view
     @SuppressLint("SetTextI18n")
     override fun setWeather(weather: WeatherModel?) {
         if (weather == null) {

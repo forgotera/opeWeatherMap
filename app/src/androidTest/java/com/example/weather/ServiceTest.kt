@@ -25,7 +25,6 @@ class ServiceTest {
 
     @Test
     fun serviceTest() {
-
         val service = WeatherService()
         service.execute(createUrl("tokio"))
         Assert.assertNotNull(service.get())
