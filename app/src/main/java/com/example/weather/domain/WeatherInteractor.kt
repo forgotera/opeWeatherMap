@@ -1,6 +1,8 @@
 package com.example.weather.domain
 
 import com.example.weather.data.WeatherRepository
+import com.example.weather.domain.model.WeatherModel
+import com.google.gson.Gson
 
 interface WeatherInteractor{
     fun getWeather(place: String)
@@ -12,6 +14,9 @@ class WeatherInteractorImpl(
 
 
     override fun getWeather(place: String) {
-        repository.getWeather(place)
+        val task = repository.getWeather(place)
+        task.apply {
+
+        }
     }
 }

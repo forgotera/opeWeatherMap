@@ -1,14 +1,16 @@
 package com.example.weather.data
 
 import android.net.Uri
+import com.example.weather.data.dto.WeatherDto
 import com.example.weather.service.WeatherService
+import com.google.gson.Gson
 import java.net.URL
 
-interface WeatherRepository{
-    fun getWeather(place: String)
+interface WeatherRepository {
+    fun getWeather(place: String): WeatherDto?
 }
 
-class WeatherRepositoryImpl:WeatherRepository {
+class WeatherRepositoryImpl : WeatherRepository {
 
     companion object {
         const val PATH = "api.openweathermap.org/data/2.5/weather"
@@ -22,8 +24,10 @@ class WeatherRepositoryImpl:WeatherRepository {
         return URL(uri.toString())
     }
 
-    override fun getWeather(place: String) {
+    override fun getWeather(place: String): WeatherDto? {
         val service = WeatherService()
         service.execute(createUrl("dmitrov"))
+        return Gson().fromJson(service.get(), WeatherDto::class.java)
+
     }
 }
