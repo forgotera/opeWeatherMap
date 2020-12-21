@@ -1,13 +1,20 @@
 package com.example.weather.data.dto
 
 import com.google.gson.annotations.SerializedName
+import java.math.BigDecimal
 
 data class Main (
 
-	@SerializedName("temp") val temp : Double,
-	@SerializedName("feels_like") val feels_like : Double,
-	@SerializedName("temp_min") val temp_min : Double,
-	@SerializedName("temp_max") val temp_max : Double,
-	@SerializedName("pressure") val pressure : Int,
-	@SerializedName("humidity") val humidity : Int
+	@SerializedName("temp")
+	val temp : BigDecimal,
+	@SerializedName("feels_like")
+	val feels_like : BigDecimal,
+	@SerializedName("temp_min")
+	val temp_min : BigDecimal,
+	@SerializedName("temp_max")
+	val temp_max : BigDecimal,
+	@SerializedName("pressure")
+	val pressure : BigDecimal,
+	@SerializedName("humidity")
+	val humidity : BigDecimal
 )

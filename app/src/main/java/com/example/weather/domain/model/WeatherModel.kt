@@ -1,6 +1,10 @@
 package com.example.weather.domain.model
 
-data class WeatherModel(
+import java.math.BigDecimal
 
-    val main:String
+data class WeatherModel(
+    val temp : BigDecimal,
+    val feels_like : BigDecimal,
+    val temp_min : BigDecimal,
+    val temp_max : BigDecimal
 )

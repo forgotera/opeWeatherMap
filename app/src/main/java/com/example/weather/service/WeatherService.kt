@@ -8,7 +8,10 @@ import java.net.HttpURLConnection
 import java.net.URL
 
 
-//todo в порядке исключения asyntack
+//todo в порядке исключения asyntask
+/**
+ * класс отвечающий за запросы в сеть
+ */
 class WeatherService : AsyncTask<URL, Unit, String>() {
 
 
@@ -31,6 +34,7 @@ class WeatherService : AsyncTask<URL, Unit, String>() {
             connection?.readTimeout = 250
 
 
+            //todo по хорошему должно быть обработка кодов
             if (HttpURLConnection.HTTP_OK == connection!!.responseCode) {
                 val reader =
                     BufferedReader(InputStreamReader(connection.inputStream))
