@@ -11,7 +11,7 @@ class WeatherMapper {
                 temp = it,
                 feels_like = dto.main.feels_like,
                 temp_min = dto.main.temp_min,
-                temp_max = dto.main.temp_min
+                temp_max = dto.main.temp_max
             )
         }
 
