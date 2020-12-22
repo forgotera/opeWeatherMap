@@ -13,6 +13,7 @@ import com.example.weather.data.WeatherRepositoryImpl
 import com.example.weather.domain.WeatherInteractorImpl
 import com.example.weather.domain.mapper.WeatherMapper
 import com.example.weather.domain.model.WeatherModel
+import com.example.weather.presentation.model.PresentationWeatherModelImpl
 import com.example.weather.presentation.presenter.WeatherPresenter
 
 interface ViewInterface {
@@ -36,6 +37,7 @@ class MainActivity : AppCompatActivity(), ViewInterface {
     private val weatherMapper = WeatherMapper()
     private val repository = WeatherRepositoryImpl(weatherMapper)
     private val interactor = WeatherInteractorImpl(repository)
+    private val dataModel = PresentationWeatherModelImpl(interactor)
 
     private val search: EditText by lazy { findViewById<EditText>(R.id.getcity_edit_text_view) }
     private val mainTemperature: TextView by lazy { findViewById<TextView>(R.id.temperature_text_view) }
@@ -79,7 +81,7 @@ class MainActivity : AppCompatActivity(), ViewInterface {
 
     private fun bindPresenter() {
         if (presenter == null) {
-            presenter = WeatherPresenter(this, interactor)
+            presenter = WeatherPresenter(this, dataModel)
         }
     }
 
