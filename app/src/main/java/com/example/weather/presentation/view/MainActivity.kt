@@ -108,6 +108,9 @@ class MainActivity : AppCompatActivity(), ViewInterface {
     override fun setWeather(weather: WeatherModel?) {
         if (weather == null) {
             mainTemperature.text = "Город не найден"
+            maxTemperature.text = ""
+            minTemperature.text = ""
+            feelsLikeTemperature.text = ""
         } else {
             mainTemperature.text = weather.temp.toString() + " C"
             maxTemperature.text = "Максимум " + weather.temp_max.toString() + " C"
