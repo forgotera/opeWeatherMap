@@ -5,8 +5,9 @@ import com.example.weather.data.dto.WeatherDto
 import com.example.weather.domain.mapper.WeatherMapper
 import com.example.weather.domain.model.WeatherModel
 import com.example.weather.service.WeatherService
-import com.google.gson.Gson
+import com.example.weather.service.WeatherService.AsyncResponse
 import java.net.URL
+
 
 interface WeatherRepository {
 
@@ -16,6 +17,8 @@ interface WeatherRepository {
 class WeatherRepositoryImpl(
     private val weatherMapper: WeatherMapper
 ) : WeatherRepository {
+
+    private var data : WeatherModel? = null
 
     companion object {
         private const val SCHEME = "http"
@@ -39,9 +42,14 @@ class WeatherRepositoryImpl(
     override fun getWeather(place: String): WeatherModel? {
         val service = WeatherService()
         service.execute(createUrl(place))
-        //сериализация в dto
-        val dto = Gson().fromJson(service.get(), WeatherDto::class.java)
-        //mapping в model
-        return dto.let { weatherMapper.map(it) }
+
+        service.response=(object : AsyncResponse {
+
+            override fun processFinish(output: WeatherDto?) {
+                data = weatherMapper.map(output)
+            }
+        })
+
+        return data
     }
 }

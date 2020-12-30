@@ -1,6 +1,8 @@
 package com.example.weather.service
 
 import android.os.AsyncTask
+import com.example.weather.data.dto.WeatherDto
+import com.google.gson.Gson
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.net.HttpURLConnection
@@ -10,17 +12,23 @@ import java.net.URL
 /**
  * класс отвечающий за запросы в сеть
  */
-class WeatherService : AsyncTask<URL, Unit, String>() {
+class WeatherService : AsyncTask<URL, Unit, WeatherDto>() {
 
 
     companion object {
         const val GET = "GET"
     }
 
-    override fun doInBackground(vararg params: URL?): String {
+    interface AsyncResponse {
+        fun processFinish(output: WeatherDto?)
+    }
+
+    var response: AsyncResponse? = null
+
+    override fun doInBackground(vararg params: URL?): WeatherDto? {
 
         if (params[0] == null) {
-            return ""
+            return null
         }
         var connection: HttpURLConnection? = null
         val builder = StringBuilder()
@@ -48,7 +56,14 @@ class WeatherService : AsyncTask<URL, Unit, String>() {
         } finally {
             connection?.disconnect()
         }
-        return builder.toString()
+
+        //сериализация в dto
+        return Gson().fromJson(builder.toString(), WeatherDto::class.java)
+    }
+
+    override fun onPostExecute(result: WeatherDto?) {
+        super.onPostExecute(result)
+        response?.processFinish(result)
     }
 
 
