@@ -11,7 +11,6 @@ import android.widget.TextView
 import com.example.weather.R
 import com.example.weather.data.WeatherRepositoryImpl
 import com.example.weather.domain.WeatherInteractorImpl
-import com.example.weather.domain.mapper.WeatherMapper
 import com.example.weather.domain.model.WeatherModel
 import com.example.weather.presentation.model.PresentationWeatherModelImpl
 import com.example.weather.presentation.presenter.WeatherPresenter
@@ -34,8 +33,7 @@ class MainActivity : AppCompatActivity(), ViewInterface {
     }
 
     //зависимости
-    private val weatherMapper = WeatherMapper()
-    private val repository = WeatherRepositoryImpl(weatherMapper)
+    private val repository = WeatherRepositoryImpl()
     private val interactor = WeatherInteractorImpl(repository)
     private val dataModel = PresentationWeatherModelImpl(interactor)
 

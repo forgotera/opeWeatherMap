@@ -1,24 +1,18 @@
 package com.example.weather.data
 
 import android.net.Uri
-import com.example.weather.data.dto.WeatherDto
-import com.example.weather.domain.mapper.WeatherMapper
-import com.example.weather.domain.model.WeatherModel
 import com.example.weather.service.WeatherService
-import com.example.weather.service.WeatherService.AsyncResponse
 import java.net.URL
 
 
 interface WeatherRepository {
 
-    fun getWeather(place: String): WeatherModel?
+    fun getWeather(service: WeatherService, place: String)
 }
 
 class WeatherRepositoryImpl(
-    private val weatherMapper: WeatherMapper
 ) : WeatherRepository {
 
-    private var data : WeatherModel? = null
 
     companion object {
         private const val SCHEME = "http"
@@ -39,17 +33,7 @@ class WeatherRepositoryImpl(
         return URL(uri.toString())
     }
 
-    override fun getWeather(place: String): WeatherModel? {
-        val service = WeatherService()
+    override fun getWeather(service: WeatherService, place: String) {
         service.execute(createUrl(place))
-
-        service.response=(object : AsyncResponse {
-
-            override fun processFinish(output: WeatherDto?) {
-                data = weatherMapper.map(output)
-            }
-        })
-
-        return data
     }
 }

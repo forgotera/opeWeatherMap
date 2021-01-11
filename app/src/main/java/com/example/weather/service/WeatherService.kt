@@ -2,6 +2,8 @@ package com.example.weather.service
 
 import android.os.AsyncTask
 import com.example.weather.data.dto.WeatherDto
+import com.example.weather.domain.mapper.WeatherMapper
+import com.example.weather.domain.model.WeatherModel
 import com.google.gson.Gson
 import java.io.BufferedReader
 import java.io.InputStreamReader
@@ -19,11 +21,9 @@ class WeatherService : AsyncTask<URL, Unit, WeatherDto>() {
         const val GET = "GET"
     }
 
-    interface AsyncResponse {
-        fun processFinish(output: WeatherDto?)
-    }
 
-    var response: AsyncResponse? = null
+    var response: ((WeatherModel?) -> Unit)? = null
+    private val weatherMapper = WeatherMapper()
 
     override fun doInBackground(vararg params: URL?): WeatherDto? {
 
@@ -63,7 +63,7 @@ class WeatherService : AsyncTask<URL, Unit, WeatherDto>() {
 
     override fun onPostExecute(result: WeatherDto?) {
         super.onPostExecute(result)
-        response?.processFinish(result)
+        response?.invoke(weatherMapper.map(result))
     }
 
 
